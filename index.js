@@ -15,24 +15,39 @@ window.onload = function() {
 	// canvasEl.style.width = `${GameViewport.WIDTH * GameViewport.SCALE}px`;
 	// canvasEl.style.height = `${GameViewport.HEIGHT * GameViewport.SCALE}px`;
 
-	const ryu = document.querySelector('img');
+	const [ryu, background] = document.querySelectorAll('img');
 	
+	const position = {
+		x: GameViewport.WIDTH / 2 - ryu.width / 2,
+		y: 110,
+	};
 
+	let velocity = 1;
 
 	function frame() {
-		context.strokeStyle = 'yellow';
-		context.moveTo(0,0);
-		context.lineTo(GameViewport.WIDTH, GameViewport.HEIGHT);
-		context.moveTo(GameViewport.WIDTH, 0);
-		context.lineTo(0, GameViewport.HEIGHT);
-		context.stroke();
+		position.x += velocity;
 
-		context.drawImage(ryu, 0, 224 - 89);
+		if(position.x > GameViewport.WIDTH - ryu.width || position.x < 0) {
+			velocity = -velocity;
+		}
+
+		// context.clearRect(0, 0, GameViewport.WIDTH, GameViewport.HEIGHT);
+
+		context.drawImage(background, 0, 0)
+
+		// context.strokeStyle = 'yellow';
+		// context.moveTo(0,0);
+		// context.lineTo(GameViewport.WIDTH, GameViewport.HEIGHT);
+		// context.moveTo(GameViewport.WIDTH, 0);
+		// context.lineTo(0, GameViewport.HEIGHT);
+		// context.stroke();
+
+		context.drawImage(ryu, position.x, position.y);
 
 		window.requestAnimationFrame(frame);
 	}
 	
 	window.requestAnimationFrame(frame);
 
-	console.log(context);
-}
+	//console.log(context);
+};
