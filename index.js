@@ -17,14 +17,22 @@ window.onload = function() {
 
 	const ryu = document.querySelector('img');
 	
-	context.strokeStyle = 'yellow';
-	context.moveTo(0,0);
-	context.lineTo(GameViewport.WIDTH, GameViewport.HEIGHT);
-	context.moveTo(GameViewport.WIDTH, 0);
-	context.lineTo(0, GameViewport.HEIGHT);
-	context.stroke();
 
-	context.drawImage(ryu, 0, 224 - 89);
+
+	function frame() {
+		context.strokeStyle = 'yellow';
+		context.moveTo(0,0);
+		context.lineTo(GameViewport.WIDTH, GameViewport.HEIGHT);
+		context.moveTo(GameViewport.WIDTH, 0);
+		context.lineTo(0, GameViewport.HEIGHT);
+		context.stroke();
+
+		context.drawImage(ryu, 0, 224 - 89);
+
+		window.requestAnimationFrame(frame);
+	}
+	
+	window.requestAnimationFrame(frame);
 
 	console.log(context);
 }
