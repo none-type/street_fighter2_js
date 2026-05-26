@@ -2,3 +2,6 @@ STREET FIGHTER NOTES
 
 - spriters resource
 - video game music
+
+FRAME TIMING
+
