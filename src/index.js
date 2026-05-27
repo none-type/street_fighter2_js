@@ -1,5 +1,6 @@
-import { drawRyu, updateRyu} from './ryu.js';
-import { drawBackground } from './stage.js';
+import { Ryu } from './ryu.js';
+import { Ken } from './ken.js';
+import { Stage } from './stage.js';
 
 
 // Define an object called GameViewport that holds the game screen dimensions
@@ -23,21 +24,21 @@ window.onload = function() {
 	canvasEl.width = GameViewport.WIDTH;
 	canvasEl.height = GameViewport.HEIGHT;
 
-	// These lines are commented out - they would make the canvas display at 4x size
-	// canvasEl.style.width = `${GameViewport.WIDTH * GameViewport.SCALE}px`;
-	// canvasEl.style.height = `${GameViewport.HEIGHT * GameViewport.SCALE}px`;
-
-
+	const ken = new Ken(80, 110, 1);
+	const ryu = new Ryu(80, 110, -1);
+	const stage = new Stage();
 	
 
 	// Define a function that will be called repeatedly to animate the game
 	// Each call to frame() draws one frame of animation
 	function frame() {
 
-		updateRyu(context);
+		ryu.update(context);
+		ken.update(context);
 
-		drawBackground(context);
-		drawRyu(context);
+		stage.draw(context);
+		ryu.draw(context);
+		ken.draw(context);
 
 		// This line is commented out - it would clear the entire canvas
 		// context.clearRect(0, 0, GameViewport.WIDTH, GameViewport.HEIGHT);
