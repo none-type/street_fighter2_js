@@ -1,6 +1,7 @@
-import { Ryu } from './ryu.js';
-import { Ken } from './ken.js';
-import { Stage } from './stage.js';
+import { Ryu } from './entities/fighters/Ryu.js';
+import { Ken } from './entities/fighters/Ken.js';
+import { Stage } from './entities/stage.js';
+import { FpsCounter } from './entities/FpsCounter.js';
 
 
 // Define an object called GameViewport that holds the game screen dimensions
@@ -13,7 +14,7 @@ const GameViewport = {
 
 // This function runs automatically when the webpage finishes loading
 // window.onload means "wait for all images, styles, etc. to load first"
-window.onload = function() {
+window.addEventListener('load', function() {
 	// Find the <canvas> element in the HTML (like finding a drawing pad on the page)
 	const canvasEl = document.querySelector('canvas');
 	
@@ -24,46 +25,39 @@ window.onload = function() {
 	canvasEl.width = GameViewport.WIDTH;
 	canvasEl.height = GameViewport.HEIGHT;
 
-	const ken = new Ken(80, 110, 1);
-	const ryu = new Ryu(80, 110, -1);
-	const stage = new Stage();
+
+	const entities = [
+		new Stage(),
+		new Ken(80, 110, 150),
+		new Ryu(80, 110, -150),
+		new FpsCounter(),
+	];
+
 	
 
-	// Define a function that will be called repeatedly to animate the game
-	// Each call to frame() draws one frame of animation
-	function frame() {
+	let previousTime = 0;
+	let secondsPassed = 0;
+	
 
-		ryu.update(context);
-		ken.update(context);
-
-		stage.draw(context);
-		ryu.draw(context);
-		ken.draw(context);
-
-		// This line is commented out - it would clear the entire canvas
-		// context.clearRect(0, 0, GameViewport.WIDTH, GameViewport.HEIGHT);
-
-		
-
-		// These commented lines would draw yellow X lines from corner to corner
-		// context.strokeStyle = 'yellow';
-		// context.moveTo(0,0);
-		// context.lineTo(GameViewport.WIDTH, GameViewport.HEIGHT);
-		// context.moveTo(GameViewport.WIDTH, 0);
-		// context.lineTo(0, GameViewport.HEIGHT);
-		// context.stroke();
-
-		
-
-		// Schedule this same frame() function to run again before the next screen refresh
-		// This creates an animation loop (usually 60 frames per second)
-		// requestAnimationFrame = Setting an alarm clock that will remind you to call yourself when the time comes
+	function frame(time) {
 		window.requestAnimationFrame(frame);
+
+		secondsPassed = (time - previousTime) / 1000;
+		previousTime = time;
+
+		for (const entity of entities) {
+			entity.update(secondsPassed, context);
+		}
+
+		for (const entity of entities) {
+			entity.draw(context);
+		}
+
+		
+
 	}
 	
 	// Start the animation by calling frame() for the first time
 	window.requestAnimationFrame(frame);
 
-	// This line is commented out - would show the drawing context in console
-	//console.log(context);
-};
+});

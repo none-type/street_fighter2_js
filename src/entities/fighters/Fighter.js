@@ -7,9 +7,9 @@ export class Fighter {
 		this.velocity = velocity;
 	}
 
-	update(context){
+	update(secondsPassed, context){
 		// Move the character horizontally by adding velocity to position
-		this.position.x += this.velocity;  // Since velocity is 1, it moves right 1 pixel per frame
+		this.position.x += this.velocity * secondsPassed;  // Since velocity is 1, it moves right 1 pixel per frame
 
 		// Check if character hit the right edge OR left edge of the screen
 		if(this.position.x > context.canvas.width - this.image.width || this.position.x < 0) {
