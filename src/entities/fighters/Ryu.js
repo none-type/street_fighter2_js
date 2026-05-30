@@ -9,7 +9,6 @@ export class Ryu extends Fighter {
 	this.image = document.querySelector('img[alt="ryu"]');
 
 	this.frame = [3, 910, 60, 89];
-
 	}
 }
 
