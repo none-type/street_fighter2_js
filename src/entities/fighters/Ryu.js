@@ -8,6 +8,8 @@ export class Ryu extends Fighter {
 	// The first image becomes 'ryu' (the character), the second becomes 'background'
 	this.image = document.querySelector('img[alt="ryu"]');
 
+	this.frame = [3, 910, 60, 89];
+
 	}
 }
 

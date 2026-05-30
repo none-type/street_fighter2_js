@@ -8,6 +8,7 @@ export class Ken extends Fighter {
 	// The first image becomes 'ryu' (the character), the second becomes 'background'
 	this.image = document.querySelector('img[alt="ken"]');
 
+	this.frame = [3, 529, 60, 89];
 	}
 }
 
